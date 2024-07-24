@@ -46,8 +46,8 @@ out/
 # other stuff
 run/
 
-forktest-server
-forktest-api
+WitherCraft-Server
+WitherCraft-API
 paper-api-generator
 
 !gradle/wrapper/gradle-wrapper.jar

@@ -1,5 +1,6 @@
 pluginManagement {
     repositories {
+        mavenLocal()
         gradlePluginPortal()
         maven("https://repo.papermc.io/repository/maven-public/")
     }
@@ -9,6 +10,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
 }
 
-rootProject.name = "forktest"
+rootProject.name = "WitherCraft"
 
-include("forktest-api", "forktest-server")
+include("WitherCraft-API", "WitherCraft-Server")

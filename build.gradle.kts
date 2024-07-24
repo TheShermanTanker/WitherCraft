@@ -3,7 +3,7 @@ plugins {
     `maven-publish`
 
     // In general, keep this version in sync with upstream. Sometimes a newer version than upstream might work, but an older version is extremely likely to break.
-    id("io.papermc.paperweight.patcher") version "1.7.1"
+    id("io.papermc.paperweight.patcher") version "1.7.2-SNAPSHOT"
 }
 
 val paperMavenPublicUrl = "https://repo.papermc.io/repository/maven-public/"
@@ -51,18 +51,21 @@ subprojects {
 }
 
 paperweight {
-    serverProject = project(":forktest-server")
+    serverProject = project(":WitherCraft-Server")
 
     remapRepo = paperMavenPublicUrl
     decompileRepo = paperMavenPublicUrl
 
+    mappings.set(layout.projectDirectory.file("build-data/merged-mappings.csrg"))
+    spigotDeps.set(layout.projectDirectory.dir("build-data/spigot"))
+
     usePaperUpstream(providers.gradleProperty("paperRef")) {
         withPaperPatcher {
             apiPatchDir = layout.projectDirectory.dir("patches/api")
-            apiOutputDir = layout.projectDirectory.dir("forktest-api")
+            apiOutputDir = layout.projectDirectory.dir("WitherCraft-API")
 
             serverPatchDir = layout.projectDirectory.dir("patches/server")
-            serverOutputDir = layout.projectDirectory.dir("forktest-server")
+            serverOutputDir = layout.projectDirectory.dir("WitherCraft-Server")
 
         }
         patchTasks.register("generatedApi") {
@@ -79,7 +82,7 @@ paperweight {
 //
 
 tasks.generateDevelopmentBundle {
-    apiCoordinates = "com.example.paperfork:forktest-api"
+    apiCoordinates = "me.theshermantanker.withercraft:WitherCraft-API"
     libraryRepositories = listOf(
         "https://repo.maven.apache.org/maven2/",
         paperMavenPublicUrl,
@@ -89,7 +92,7 @@ tasks.generateDevelopmentBundle {
 
 allprojects {
     // Publishing API:
-    // ./gradlew :ForkTest-API:publish[ToMavenLocal]
+    // ./gradlew :WitherCraft-API:publish[ToMavenLocal]
     publishing {
         repositories {
             maven {
